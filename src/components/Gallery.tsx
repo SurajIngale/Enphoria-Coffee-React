@@ -1,78 +1,136 @@
-import React, { useState, useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, useInView, useAnimation } from 'framer-motion';
 
 export const Gallery = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const controls = useAnimation();
+  const [selectedImage, setSelectedImage] = useState(null);
 
   // Generate array of image paths from 1.jpg to 39.jpg
   const galleryImages = Array.from({ length: 38 }, (_, i) => `/${i + 1}.jpg`);
+  
+  // Split images into two rows
+  const firstRowImages = galleryImages.slice(0, 19);
+  const secondRowImages = galleryImages.slice(19);
+
+  // Start animation when component mounts or isInView changes
+  useEffect(() => {
+    if (isInView) {
+      controls.start("animate");
+    }
+  }, [isInView, controls]);
+
+  // Animation variants for continuous scrolling
+  const scrollVariants = {
+    animate: {
+      x: ["-50%", 0],
+      transition: {
+        x: {
+          repeat: Infinity,
+          repeatType: "loop",
+          duration: 30,
+          ease: "linear",
+        },
+      },
+    },
+    hover: {
+      x: 0,
+      transition: {
+        duration: 0.3,
+      },
+    },
+  };
 
   return (
-    <section id="gallery" className="py-20 bg-primary-50 dark:bg-primary-900/20">
+    <section id="gallery" className="py-12 md:py-20 bg-primary-50 dark:bg-primary-900/20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-800 dark:text-cream mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-primary-800 dark:text-cream mb-4">
             Gallery
           </h2>
-          <p className="font-body text-lg text-neutral dark:text-cream/80 max-w-2xl mx-auto">
+          <p className="font-body text-base md:text-lg text-neutral dark:text-cream/80 max-w-2xl mx-auto">
             Take a visual journey through our coffee culture, from perfectly crafted drinks 
             to the warm atmosphere of our cafe.
           </p>
         </motion.div>
 
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.05,
-              },
-            },
-          }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {galleryImages.map((image, index) => (
-            <motion.div
-              key={index}
-              variants={{
-                hidden: { scale: 0.8, opacity: 0 },
-                visible: { scale: 1, opacity: 1 },
-              }}
-              whileHover={{ 
-                scale: 1.05,
-                zIndex: 10,
-                transition: { duration: 0.3 }
-              }}
-              className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group"
-              onClick={() => setSelectedImage(image)}
-            >
-              <img
-                src={image}
-                alt={`Gallery image ${index + 1}`}
-                className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-800/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  className="bg-cream/90 text-primary-800 px-4 py-2 rounded-full font-body font-medium"
-                >
-                  View Image
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <div ref={ref} className="space-y-4 md:space-y-6">
+          {/* First Row */}
+          <motion.div
+            className="flex gap-4 md:gap-6"
+            variants={scrollVariants}
+            animate={controls}
+            onHoverStart={() => controls.stop()}
+            onHoverEnd={() => controls.start("animate")}
+            initial={{ x: 0 }}
+          >
+            {firstRowImages.concat(firstRowImages).map((image, index) => (
+              <motion.div
+                key={`first-${index}`}
+                className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group flex-shrink-0"
+                style={{ width: '250px', height: '250px', md: { width: 300, height: 300 } }}
+                whileHover={{ scale: 1.05, zIndex: 10 }}
+                onClick={() => setSelectedImage(image)}
+              >
+                <img
+                  src={image}
+                  alt={`Gallery image ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-800/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    className="bg-cream/90 text-primary-800 px-3 py-1 md:px-4 md:py-2 rounded-full font-body font-medium text-sm md:text-base"
+                  >
+                    View Image
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* Second Row */}
+          <motion.div
+            className="flex gap-4 md:gap-6"
+            variants={scrollVariants}
+            animate={controls}
+            onHoverStart={() => controls.stop()}
+            onHoverEnd={() => controls.start("animate")}
+            initial={{ x: 0 }}
+          >
+            {secondRowImages.concat(secondRowImages).map((image, index) => (
+              <motion.div
+                key={`second-${index}`}
+                className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group flex-shrink-0"
+                style={{ width: '250px', height: '250px', md: { width: 300, height: 300 } }}
+                whileHover={{ scale: 1.05, zIndex: 10 }}
+                onClick={() => setSelectedImage(image)}
+              >
+                <img
+                  src={image}
+                  alt={`Gallery image ${index + 20}`}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary-800/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    className="bg-cream/90 text-primary-800 px-3 py-1 md:px-4 md:py-2 rounded-full font-body font-medium text-sm md:text-base"
+                  >
+                    View Image
+                  </motion.div>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
 
         {/* Modal for selected image */}
         {selectedImage && (

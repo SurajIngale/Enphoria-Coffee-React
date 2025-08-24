@@ -14,9 +14,9 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-cream dark:bg-charcoal">
+    <section id="about" className="py-12 md:py-20 bg-cream dark:bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className="grid md:grid-cols-2 gap-12 items-center">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Image Carousel */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
@@ -24,7 +24,7 @@ const About = () => {
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
               {cafeImages.map((image, index) => (
                 <motion.img
                   key={index}
@@ -65,15 +65,15 @@ const About = () => {
             animate={isInView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="flex items-center mb-6">
+            <div className="flex items-center mb-4 md:mb-6">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                className="w-8 h-8 mr-3"
+                className="w-6 h-6 md:w-8 md:h-8 mr-3"
               >
                 ☕
               </motion.div>
-              <h2 className="font-heading text-4xl font-bold text-primary-800 dark:text-cream">
+              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-800 dark:text-cream">
                 About Enphoria
               </h2>
             </div>
@@ -82,7 +82,7 @@ const About = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="font-body text-lg text-neutral dark:text-cream/80 mb-6 leading-relaxed"
+              className="font-body text-base md:text-lg text-neutral dark:text-cream/80 mb-4 md:mb-6 leading-relaxed"
             >
               At Enphoria Coffee, we believe that every cup tells a story. Since our founding in 2015, 
               we've been dedicated to crafting the perfect coffee experience, from carefully sourced beans 
@@ -93,7 +93,7 @@ const About = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="font-body text-lg text-neutral dark:text-cream/80 mb-8 leading-relaxed"
+              className="font-body text-base md:text-lg text-neutral dark:text-cream/80 mb-6 md:mb-8 leading-relaxed"
             >
               Our passionate baristas use traditional brewing methods combined with modern techniques 
               to create moments of pure coffee bliss. Every visit to Enphoria is designed to be 
@@ -104,15 +104,15 @@ const About = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="grid grid-cols-2 gap-8"
+              className="grid grid-cols-2 gap-6 md:gap-8"
             >
               <div className="text-center">
-                <div className="text-3xl font-heading font-bold text-accent mb-2">10+</div>
-                <div className="font-body text-neutral dark:text-cream/80">Years Experience</div>
+                <div className="text-2xl md:text-3xl font-heading font-bold text-accent mb-2">10+</div>
+                <div className="font-body text-sm md:text-base text-neutral dark:text-cream/80">Years Experience</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-heading font-bold text-accent mb-2">50k+</div>
-                <div className="font-body text-neutral dark:text-cream/80">Happy Customers</div>
+                <div className="text-2xl md:text-3xl font-heading font-bold text-accent mb-2">50k+</div>
+                <div className="font-body text-sm md:text-base text-neutral dark:text-cream/80">Happy Customers</div>
               </div>
             </motion.div>
           </motion.div>

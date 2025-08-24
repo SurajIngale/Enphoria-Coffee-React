@@ -36,18 +36,18 @@ const MenuHighlights = () => {
   };
 
   return (
-    <section id="menu" className="py-20 bg-primary-50 dark:bg-primary-900/20">
+    <section id="menu" className="py-12 md:py-20 bg-primary-50 dark:bg-primary-900/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-8 md:mb-16"
         >
-          <h2 className="font-heading text-4xl md:text-5xl font-bold text-primary-800 dark:text-cream mb-4">
+          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-primary-800 dark:text-cream mb-4">
             Menu Highlights
           </h2>
-          <p className="font-body text-lg text-neutral dark:text-cream/80 max-w-2xl mx-auto">
+          <p className="font-body text-base md:text-lg text-neutral dark:text-cream/80 max-w-2xl mx-auto">
             Discover our carefully curated selection of premium coffee beverages, 
             crafted with passion and served with love.
           </p>
@@ -58,7 +58,7 @@ const MenuHighlights = () => {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"
         >
           {menuItems.map((item, index) => (
             <motion.div
@@ -77,13 +77,13 @@ const MenuHighlights = () => {
                 <img
                   src={item.image}
                   alt={`Menu item ${index + 1}`}
-                  className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-48 md:h-64 object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <motion.div
                     whileHover={{ scale: 1.1 }}
-                    className="bg-cream/90 text-primary-800 px-4 py-2 rounded-full font-body font-medium"
+                    className="bg-cream/90 text-primary-800 px-3 py-1 md:px-4 md:py-2 rounded-full font-body font-medium text-sm md:text-base"
                   >
                     View Image
                   </motion.div>
