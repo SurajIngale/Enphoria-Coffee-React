@@ -89,9 +89,12 @@ export const Hero = () => {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="mb-8"
         >
-          <div className="w-32 h-32 mx-auto mb-6 bg-primary-800 dark:bg-primary-400 rounded-full flex items-center justify-center">
-            <span className="text-4xl font-heading font-bold text-cream dark:text-charcoal">E</span>
-          </div>
+
+            <img 
+              src="/logo-1.jpg" 
+              alt="Enphoria Coffee Logo" 
+              className="w-32 h-32 mx-auto mb-6 bg-primary-800 dark:bg-primary-400 rounded-full flex items-center justify-center"
+            />
         </motion.div>
 
         <motion.h1

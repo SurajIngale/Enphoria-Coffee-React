@@ -7,7 +7,7 @@ export const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Generate array of image paths from 1.jpg to 39.jpg
-  const galleryImages = Array.from({ length: 39 }, (_, i) => `/${i + 1}.jpg`);
+  const galleryImages = Array.from({ length: 38 }, (_, i) => `/${i + 1}.jpg`);
 
   return (
     <section id="gallery" className="py-20 bg-primary-50 dark:bg-primary-900/20">
