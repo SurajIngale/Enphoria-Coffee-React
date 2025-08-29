@@ -1,3 +1,4 @@
+// Updated Gallery.tsx
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 
@@ -74,7 +75,7 @@ export const Gallery = () => {
               <motion.div
                 key={`first-${index}`}
                 className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group flex-shrink-0"
-                style={{ width: '250px', height: '250px', md: { width: 300, height: 300 } }}
+                style={{ width: '200px', height: '200px' }}
                 whileHover={{ scale: 1.05, zIndex: 10 }}
                 onClick={() => setSelectedImage(image)}
               >
@@ -109,7 +110,7 @@ export const Gallery = () => {
               <motion.div
                 key={`second-${index}`}
                 className="relative overflow-hidden rounded-2xl shadow-lg cursor-pointer group flex-shrink-0"
-                style={{ width: '250px', height: '250px', md: { width: 300, height: 300 } }}
+                style={{ width: '200px', height: '200px' }}
                 whileHover={{ scale: 1.05, zIndex: 10 }}
                 onClick={() => setSelectedImage(image)}
               >

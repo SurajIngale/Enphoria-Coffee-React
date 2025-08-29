@@ -1,48 +1,49 @@
+// Updated Specialties.tsx
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 
 const Specialties = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
-const specialties = [
-  {
-    name: 'Cold Coffee Crush',
-    description: 'Refreshing chilled coffee blended with ice and cream',
-    image: '/1.jpg',
-    price: '$3.99',
-  },
-  {
-    name: 'Berry Blast Milkshake',
-    description: 'Delicious milkshake made with fresh strawberries and blueberries',
-    image: '/4.jpg',
-    price: '$4.50',
-  },
-  {
-    name: 'Cheese Burst Pizza',
-    description: 'Classic pizza with a gooey, cheesy molten center',
-    image: '/14.jpg',
-    price: '$9.99',
-  },
-  {
-    name: 'Mexican Cheesy Fries',
-    description: 'Crispy fries topped with cheese and Mexican spices',
-    image: '/18.jpg',
-    price: '$5.25',
-  },
-  {
-    name: 'Paneer Tikka Roll',
-    description: 'Grilled paneer wrapped with veggies and sauces',
-    image: '/26.jpg',
-    price: '$6.75',
-  },
-  {
-    name: 'Hazelnut Cold Coffee',
-    description: 'Icy cold coffee blended with hazelnut flavor',
-    image: '/39.jpg',
-    price: '$4.25',
-  },
-];
-
+  
+  const specialties = [
+    {
+      name: 'Cold Coffee Crush',
+      description: 'Refreshing chilled coffee blended with ice and cream',
+      image: '/1.jpg',
+      price: '$3.99',
+    },
+    {
+      name: 'Berry Blast Milkshake',
+      description: 'Delicious milkshake made with fresh strawberries and blueberries',
+      image: '/4.jpg',
+      price: '$4.50',
+    },
+    {
+      name: 'Cheese Burst Pizza',
+      description: 'Classic pizza with a gooey, cheesy molten center',
+      image: '/14.jpg',
+      price: '$9.99',
+    },
+    {
+      name: 'Mexican Cheesy Fries',
+      description: 'Crispy fries topped with cheese and Mexican spices',
+      image: '/18.jpg',
+      price: '$5.25',
+    },
+    {
+      name: 'Paneer Tikka Roll',
+      description: 'Grilled paneer wrapped with veggies and sauces',
+      image: '/26.jpg',
+      price: '$6.75',
+    },
+    {
+      name: 'Hazelnut Cold Coffee',
+      description: 'Icy cold coffee blended with hazelnut flavor',
+      image: '/39.jpg',
+      price: '$4.25',
+    },
+  ];
 
   return (
     <section className="py-12 md:py-20 bg-cream dark:bg-charcoal">
@@ -71,7 +72,6 @@ const specialties = [
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
-              WebkitScrollbar: { display: 'none' }
             }}
           >
             {specialties.map((item, index) => (
@@ -81,7 +81,7 @@ const specialties = [
                   scale: 1.05,
                   boxShadow: '0 15px 35px rgba(16, 185, 129, 0.2)'
                 }}
-                className="flex-shrink-0 w-64 md:w-72 bg-primary-50 dark:bg-primary-900/30 rounded-2xl overflow-hidden shadow-lg snap-start"
+                className="flex-shrink-0 w-56 sm:w-64 md:w-72 bg-primary-50 dark:bg-primary-900/30 rounded-2xl overflow-hidden shadow-lg snap-start"
               >
                 <div className="relative overflow-hidden group">
                   <img

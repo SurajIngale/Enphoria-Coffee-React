@@ -14,17 +14,17 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-12 md:py-20 bg-cream dark:bg-charcoal">
+    <section id="about" className="py-8 sm:py-12 md:py-20 bg-cream dark:bg-charcoal">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          {/* Image Carousel */}
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 md:gap-12 items-center">
+          {/* Image Carousel - Added responsive height */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             animate={isInView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8 }}
             className="relative"
           >
-            <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative h-64 sm:h-72 md:h-96 rounded-2xl overflow-hidden shadow-2xl">
               {cafeImages.map((image, index) => (
                 <motion.img
                   key={index}
@@ -59,21 +59,21 @@ const About = () => {
             </div>
           </motion.div>
 
-          {/* Content */}
+          {/* Content - Adjusted for new cafe, responsive text sizes */}
           <motion.div
             initial={{ x: 100, opacity: 0 }}
             animate={isInView ? { x: 0, opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <div className="flex items-center mb-4 md:mb-6">
+            <div className="flex items-center mb-4 sm:mb-6">
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
-                className="w-6 h-6 md:w-8 md:h-8 mr-3"
+                className="w-6 h-6 sm:w-8 sm:h-8 mr-3"
               >
                 ☕
               </motion.div>
-              <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary-800 dark:text-cream">
+              <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-bold text-primary-800 dark:text-cream">
                 About Enphoria
               </h2>
             </div>
@@ -82,10 +82,10 @@ const About = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="font-body text-base md:text-lg text-neutral dark:text-cream/80 mb-4 md:mb-6 leading-relaxed"
+              className="font-body text-sm sm:text-base md:text-lg text-neutral dark:text-cream/80 mb-4 sm:mb-6 leading-relaxed"
             >
-              At Enphoria Coffee, we believe that every cup tells a story. Since our founding in 2015, 
-              we've been dedicated to crafting the perfect coffee experience, from carefully sourced beans 
+              At Enphoria Coffee, we believe that every cup tells a story. As a newly opened cafe in 2025, 
+              we're excited to bring fresh, premium coffee experiences to our community, from carefully sourced beans 
               to expertly prepared beverages.
             </motion.p>
 
@@ -93,27 +93,26 @@ const About = () => {
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="font-body text-base md:text-lg text-neutral dark:text-cream/80 mb-6 md:mb-8 leading-relaxed"
+              className="font-body text-sm sm:text-base md:text-lg text-neutral dark:text-cream/80 mb-6 sm:mb-8 leading-relaxed"
             >
-              Our passionate baristas use traditional brewing methods combined with modern techniques 
-              to create moments of pure coffee bliss. Every visit to Enphoria is designed to be 
-              a sensory journey that awakens your senses and enriches your day.
+              Our passionate baristas blend traditional brewing methods with modern techniques 
+              to create moments of pure coffee bliss. Join us for our grand opening and be part of our journey!
             </motion.p>
 
+            {/* Removed experience stats; added inviting CTA */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={isInView ? { y: 0, opacity: 1 } : {}}
               transition={{ duration: 0.8, delay: 0.8 }}
-              className="grid grid-cols-2 gap-6 md:gap-8"
+              className="text-center sm:text-left"
             >
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-heading font-bold text-accent mb-2">10+</div>
-                <div className="font-body text-sm md:text-base text-neutral dark:text-cream/80">Years Experience</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl md:text-3xl font-heading font-bold text-accent mb-2">50k+</div>
-                <div className="font-body text-sm md:text-base text-neutral dark:text-cream/80">Happy Customers</div>
-              </div>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal px-4 py-2 sm:px-6 sm:py-3 rounded-full font-body font-semibold text-sm sm:text-base shadow-lg hover:bg-primary-700 dark:hover:bg-primary-400 transition-all duration-300"
+              >
+                Visit Us Today
+              </motion.button>
             </motion.div>
           </motion.div>
         </div>
