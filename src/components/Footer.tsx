@@ -4,7 +4,7 @@ import { FiInstagram, FiFacebook, FiTwitter, FiHeart } from 'react-icons/fi';
 
 const Footer = () => {
   const socialLinks = [
-    { icon: FiInstagram, href: '#', label: 'Instagram' },
+    { icon: FiInstagram, href: 'https://www.instagram.com/enphoriacoffee?igsh=MXBqMGFlbmVodDNqZA==', label: 'Instagram' },
     { icon: FiFacebook, href: '#', label: 'Facebook' },
     { icon: FiTwitter, href: '#', label: 'Twitter' },
   ];
