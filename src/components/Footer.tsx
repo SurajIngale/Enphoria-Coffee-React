@@ -65,9 +65,9 @@ const Footer = () => {
           >
             <h3 className="font-heading font-semibold text-sm sm:text-base md:text-lg">Connect</h3>
             <div className="space-y-2 font-body text-xs sm:text-sm md:text-base text-cream/80">
-              <p>123 Coffee Street</p>
-              <p>Bean City, BC 12345</p>
-              <p>+1 (555) 123-4567</p>
+              <p>Atul Nagar, Warje,</p>
+              <p>Pune, Maharashtra 411058</p>
+              <p>+917058231834</p>
             </div>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => (
