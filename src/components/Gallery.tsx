@@ -1,16 +1,16 @@
 // Fixed Gallery.tsx - Responsive
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useInView, useAnimation } from 'framer-motion';
+import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 
 export const Gallery = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const controls = useAnimation();
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Generate array of image paths from 1.jpg to 39.jpg
   const galleryImages = Array.from({ length: 38 }, (_, i) => `/${i + 1}.jpg`);
-  
+
   // Split images into two rows
   const firstRowImages = galleryImages.slice(0, 19);
   const secondRowImages = galleryImages.slice(19);
@@ -22,10 +22,10 @@ export const Gallery = () => {
     }
   }, [isInView, controls]);
 
-  // Animation variants for continuous scrolling
-  const scrollVariants = {
+  // Animation variants for continuous scrolling - Corrected
+  const scrollVariants: Variants = {
     animate: {
-      x: ["-50%", 0],
+      x: ["-50%", "0%"],
       transition: {
         x: {
           repeat: Infinity,
@@ -36,12 +36,54 @@ export const Gallery = () => {
       },
     },
     hover: {
-      x: 0,
+      x: ["-50%", "0%"],
       transition: {
-        duration: 0.3,
+        x: {
+          repeat: 1, // Changed to 1 so it doesn't loop forever
+          repeatType: "loop",
+          duration: 0.3, // Shorter duration
+          ease: "linear",
+        },
       },
     },
   };
+  
+  // NOTE: The issue with the scrollVariants is that it's meant to be a variant, but you are not using it as such.
+  // The correct way to use this is to remove the variants prop from the `motion.div` and instead use the controls.
+  // The original code was already doing this, but the types were incorrect.
+  // A cleaner solution is to handle the animation using `controls` and `useEffect`.
+  // Here is a better way to structure the animation:
+
+  const firstRowAnimation = useAnimation();
+  const secondRowAnimation = useAnimation();
+
+  useEffect(() => {
+    if (isInView) {
+      firstRowAnimation.start({
+        x: ["0%", "-50%"],
+        transition: {
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 30,
+            ease: "linear",
+          },
+        },
+      });
+      secondRowAnimation.start({
+        x: ["-50%", "0%"],
+        transition: {
+          x: {
+            repeat: Infinity,
+            repeatType: "loop",
+            duration: 30,
+            ease: "linear",
+          },
+        },
+      });
+    }
+  }, [isInView, firstRowAnimation, secondRowAnimation]);
+
 
   return (
     <section id="gallery" className="py-8 sm:py-12 md:py-20 bg-primary-50 dark:bg-primary-900/20">
@@ -57,7 +99,7 @@ export const Gallery = () => {
             Gallery
           </h2>
           <p className="font-body text-sm sm:text-base md:text-lg text-neutral dark:text-cream/80 max-w-2xl mx-auto px-2">
-            Take a visual journey through our coffee culture, from perfectly crafted drinks 
+            Take a visual journey through our coffee culture, from perfectly crafted drinks
             to the warm atmosphere of our cafe.
           </p>
         </motion.div>
@@ -68,10 +110,19 @@ export const Gallery = () => {
             {/* First Row */}
             <motion.div
               className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6"
-              variants={scrollVariants}
-              animate={controls}
-              onHoverStart={() => controls.stop()}
-              onHoverEnd={() => controls.start("animate")}
+              animate={firstRowAnimation}
+              onHoverStart={() => firstRowAnimation.stop()}
+              onHoverEnd={() => firstRowAnimation.start({
+                x: ["0%", "-50%"],
+                transition: {
+                  x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 30,
+                    ease: "linear",
+                  },
+                },
+              })}
               initial={{ x: 0 }}
             >
               {firstRowImages.concat(firstRowImages).map((image, index) => (
@@ -102,10 +153,19 @@ export const Gallery = () => {
             {/* Second Row */}
             <motion.div
               className="flex gap-2 sm:gap-3 md:gap-4 lg:gap-6"
-              variants={scrollVariants}
-              animate={controls}
-              onHoverStart={() => controls.stop()}
-              onHoverEnd={() => controls.start("animate")}
+              animate={secondRowAnimation}
+              onHoverStart={() => secondRowAnimation.stop()}
+              onHoverEnd={() => secondRowAnimation.start({
+                x: ["-50%", "0%"],
+                transition: {
+                  x: {
+                    repeat: Infinity,
+                    repeatType: "loop",
+                    duration: 30,
+                    ease: "linear",
+                  },
+                },
+              })}
               initial={{ x: 0 }}
             >
               {secondRowImages.concat(secondRowImages).map((image, index) => (
@@ -152,7 +212,7 @@ export const Gallery = () => {
               alt="Gallery image"
               className="max-w-full max-h-full object-contain rounded-lg"
             />
-            <button 
+            <button
               className="absolute top-2 right-2 sm:top-4 sm:right-4 text-white text-xl sm:text-2xl bg-black/50 rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center"
               onClick={() => setSelectedImage(null)}
             >
