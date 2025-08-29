@@ -1,4 +1,4 @@
-// Updated Hero.tsx
+// Fixed Hero.tsx - Responsive
 import React, { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -48,25 +48,32 @@ export const Hero = () => {
       }
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    if (window.innerWidth > 768) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
+    
+    return () => {
+      if (window.innerWidth > 768) {
+        window.removeEventListener('mousemove', handleMouseMove);
+      }
+    };
   }, []);
 
-  const coffeeBeans = Array.from({ length: window.innerWidth > 768 ? 15 : 8 }, (_, i) => i);
+  const coffeeBeans = Array.from({ length: window.innerWidth > 768 ? 15 : 6 }, (_, i) => i);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden px-4">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-cream via-primary-50 to-primary-100 dark:from-charcoal dark:via-primary-900 dark:to-primary-800"></div>
       
-      {/* Floating Coffee Beans - Reduced on mobile */}
-      <div ref={beansRef} className="absolute inset-0 pointer-events-none">
+      {/* Floating Coffee Beans - Responsive */}
+      <div ref={beansRef} className="absolute inset-0 pointer-events-none overflow-hidden">
         {coffeeBeans.map((bean) => (
           <motion.div
             key={bean}
-            initial={{ x: -100, y: Math.random() * window.innerHeight }}
+            initial={{ x: -100, y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800) }}
             animate={{
-              x: window.innerWidth + 100,
+              x: typeof window !== 'undefined' ? window.innerWidth + 100 : 1200,
               rotate: 360,
             }}
             transition={{
@@ -75,26 +82,26 @@ export const Hero = () => {
               delay: Math.random() * 12,
               ease: 'linear',
             }}
-            className={`absolute w-2 h-4 md:w-3 md:h-5 bg-primary-800 dark:bg-primary-400 rounded-full opacity-20 animate-drift`}
+            className="absolute w-1.5 h-3 sm:w-2 sm:h-4 md:w-3 md:h-5 bg-primary-800 dark:bg-primary-400 rounded-full opacity-20"
             style={{
               top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 12}s`,
             }}
           />
         ))}
       </div>
 
-      <div className="relative z-10 text-center max-w-4xl mx-auto px-4">
+      {/* Main Content */}
+      <div className="relative z-10 text-center max-w-4xl mx-auto px-4 sm:px-6 w-full">
         <motion.div
           initial={{ scale: 0.8, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="mb-4 md:mb-8"
+          className="mb-3 sm:mb-4 md:mb-8"
         >
           <img 
             src="/logo-1.jpg" 
             alt="Enphoria Coffee Logo" 
-            className="w-16 h-16 md:w-32 md:h-32 mx-auto mb-4 md:mb-6 bg-primary-800 dark:bg-primary-400 rounded-full flex items-center justify-center object-cover"
+            className="w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 lg:w-32 lg:h-32 mx-auto mb-3 sm:mb-4 md:mb-6 bg-primary-800 dark:bg-primary-400 rounded-full flex items-center justify-center object-cover"
           />
         </motion.div>
 
@@ -102,7 +109,7 @@ export const Hero = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="font-heading text-3xl md:text-5xl lg:text-7xl font-bold text-primary-800 dark:text-cream mb-4 md:mb-6"
+          className="font-heading text-2xl sm:text-3xl md:text-5xl lg:text-7xl font-bold text-primary-800 dark:text-cream mb-3 sm:mb-4 md:mb-6 leading-tight"
         >
           Enphoria Coffee
         </motion.h1>
@@ -111,22 +118,22 @@ export const Hero = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="font-body text-base md:text-xl lg:text-2xl text-neutral dark:text-cream/80 mb-6 md:mb-8"
+          className="font-body text-sm sm:text-base md:text-xl lg:text-2xl text-neutral dark:text-cream/80 mb-4 sm:mb-6 md:mb-8 px-2"
         >
           Coffee Moments That Matter
         </motion.p>
 
         {/* Steam Animation */}
-        <div className="relative mb-6 md:mb-12">
+        <div className="relative mb-4 sm:mb-6 md:mb-12">
           <div
             ref={steamRef}
-            className="absolute left-1/2 transform -translate-x-1/2 -top-12 md:-top-20"
+            className="absolute left-1/2 transform -translate-x-1/2 -top-8 sm:-top-12 md:-top-20"
           >
             {Array.from({ length: 5 }).map((_, i) => (
               <div
                 key={i}
-                className="absolute w-1.5 h-6 md:w-2 md:h-8 bg-white/30 rounded-full"
-                style={{ left: `${i * 6 - 12}px` }}
+                className="absolute w-1 h-4 sm:w-1.5 sm:h-6 md:w-2 md:h-8 bg-white/30 rounded-full"
+                style={{ left: `${i * 4 - 8}px` }}
               />
             ))}
           </div>
@@ -138,7 +145,7 @@ export const Hero = () => {
           transition={{ duration: 0.8, delay: 0.9 }}
           whileHover={{ scale: 1.05, boxShadow: '0 10px 30px rgba(16, 185, 129, 0.3)' }}
           whileTap={{ scale: 0.95 }}
-          className="bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal px-6 py-3 md:px-8 md:py-4 rounded-full font-body font-semibold text-sm md:text-lg shadow-lg hover:bg-primary-700 dark:hover:bg-primary-400 transition-all duration-300"
+          className="bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-4 rounded-full font-body font-semibold text-sm sm:text-base md:text-lg shadow-lg hover:bg-primary-700 dark:hover:bg-primary-400 transition-all duration-300"
         >
           Order Now
         </motion.button>
@@ -147,14 +154,14 @@ export const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.2 }}
-          className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2"
+          className="absolute bottom-4 sm:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2"
         >
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 2, repeat: Infinity }}
             className="text-primary-800 dark:text-cream cursor-pointer"
           >
-            <FiArrowDown size={20} className="md:size-24" />
+            <FiArrowDown size={18} className="sm:size-20 md:size-24" />
           </motion.div>
         </motion.div>
       </div>

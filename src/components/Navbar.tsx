@@ -1,4 +1,4 @@
-// Updated Navbar.tsx
+// Fixed Navbar.tsx - Toggle Icon
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../contexts/ThemeContext';
@@ -68,9 +68,9 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="p-1.5 rounded-full bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal transition-colors duration-200"
+              className="p-2 rounded-full bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal transition-colors duration-200 flex items-center justify-center"
             >
-              {isDarkMode ? <FiSun size={16} className="sm:size-18" /> : <FiMoon size={16} className="sm:size-18" />}
+              {isDarkMode ? <FiSun size={20} /> : <FiMoon size={20} />}
             </motion.button>
           </div>
 
@@ -80,16 +80,16 @@ const Navbar = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="p-1.5 rounded-full bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal"
+              className="p-2 rounded-full bg-primary-800 dark:bg-primary-500 text-cream dark:text-charcoal flex items-center justify-center"
             >
-              {isDarkMode ? <FiSun size={14} /> : <FiMoon size={14} />}
+              {isDarkMode ? <FiSun size={18} /> : <FiMoon size={18} />}
             </motion.button>
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-primary-800 dark:text-cream"
+              className="text-primary-800 dark:text-cream p-1"
             >
-              {isMobileMenuOpen ? <FiX size={20} /> : <FiMenu size={20} />}
+              {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
             </motion.button>
           </div>
         </div>
@@ -99,7 +99,7 @@ const Navbar = () => {
           initial={false}
           animate={isMobileMenuOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="md:hidden overflow-x-hidden bg-cream/95 dark:bg-charcoal/95 backdrop-blur-sm rounded-b-lg"
+          className="md:hidden overflow-hidden bg-cream/95 dark:bg-charcoal/95 backdrop-blur-sm rounded-b-lg"
         >
           <div className="py-4 space-y-4 px-4">
             {navItems.map((item) => (
